@@ -1,0 +1,45 @@
+<form [formGroup]="addStudentForm" (ngSubmit)="onSubmit()">
+
+  <label for="name">Name</label>
+  <input
+    id="name"
+    type="text"
+    formControlName="name"
+  />
+
+  @if (
+    addStudentForm.controls.name.invalid &&
+    addStudentForm.controls.name.touched
+  ) {
+    @if (addStudentForm.controls.name.hasError('required')) {
+      <p>Name is required.</p>
+    }
+
+    @if (addStudentForm.controls.name.hasError('minlength')) {
+      <p>Name must be at least 2 characters.</p>
+    }
+  }
+
+  <br />
+
+  <label for="score">Score</label>
+  <input
+    id="score"
+    type="number"
+    formControlName="score"
+  />
+
+  @if (
+    addStudentForm.controls.score.invalid &&
+    addStudentForm.controls.score.touched
+  ) {
+    <p>Score is required.</p>
+  }
+
+  <br />
+
+  <button type="submit" [disabled]="addStudentForm.invalid">
+    Add student
+  </button>
+
+</form>

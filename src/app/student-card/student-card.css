@@ -1,0 +1,46 @@
+:host {
+  display: block;
+}
+
+.student-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
+  border-left: 6px solid #4f46e5;
+}
+
+.student-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.student-name {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.student-score {
+  margin-top: 0.75rem;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.high-score {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.medium-score {
+  color: #f59e0b;
+  font-weight: bold;
+}
+
+.low-score {
+  color: #dc2626;
+  font-weight: bold;
+}

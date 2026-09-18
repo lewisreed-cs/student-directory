@@ -1,0 +1,30 @@
+@if (isLoading) {
+  <p>Loading student...</p>
+}
+
+@if (errorMessage) {
+  <p class="error-message">{{ errorMessage }}</p>
+}
+
+@if (student) {
+  <h1>{{ student.name }}</h1>
+
+  <p>Student ID: {{ student.id }}</p>
+  <p>Username: {{ student.username }}</p>
+  <p>Email: {{ student.email }}</p>
+  <p>Phone: {{ student.phone }}</p>
+  <p>Website: {{ student.website }}</p>
+
+  <h2>Address</h2>
+  <p>
+    {{ student.address.street }},
+    {{ student.address.suite }},
+    {{ student.address.city }},
+    {{ student.address.zipcode }}
+  </p>
+
+  <h2>Company</h2>
+  <p>{{ student.company.name }}</p>
+}
+
+<a routerLink="/">Back to student list</a>

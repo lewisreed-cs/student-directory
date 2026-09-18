@@ -1,0 +1,16 @@
+<article>
+  <h2>{{ name }}</h2>
+
+  @if (showDetails) {
+    <p>Username: {{ username }}</p>
+    <p>Email: {{ email }}</p>
+  }
+
+  <a [routerLink]="['/student', id]">
+    View student
+  </a>
+
+  <button type="button" (click)="toggleFavourite()">
+    {{ favourite ? 'Remove from favourites' : 'Add to favourites' }}
+  </button>
+</article>

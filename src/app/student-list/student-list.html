@@ -1,0 +1,45 @@
+<h1>Student directory</h1>
+
+<label for="student-search">Search students</label>
+
+<input
+  id="student-search"
+  type="text"
+  [(ngModel)]="searchTerm"
+  placeholder="Search by name"
+>
+
+<button type="button" (click)="toggleDetails()">
+  Toggle details
+</button>
+
+<app-add-student></app-add-student>
+
+<label>
+  <input
+    type="checkbox"
+    [checked]="showFavouritesOnly"
+    (change)="showFavouritesOnly = !showFavouritesOnly"
+  />
+
+  Show favourites only
+</label>
+
+@if (displayedStudents.length === 0) {
+  <p>No favourite students found.</p>
+}
+
+@for (student of displayedStudents; track student.id) {
+<app-student-card
+  [id]="student.id"
+  [name]="student.name"
+  [email]="student.email"
+  [username]="student.username"
+  [showDetails]="showDetails"
+  [favourite]="student.favourite"
+  (favouriteToggled)="toggleFavourite($event)"
+>
+</app-student-card>
+} @empty {
+  <p>No matching students found.</p>
+}
