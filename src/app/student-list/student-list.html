@@ -1,47 +1,50 @@
-<h1>Student directory</h1>
+<section class="intro">
+  <p class="eyebrow"><span></span> People / 2026 cohort</p>
+  <h1>Find the people<br><em>shaping tomorrow.</em></h1>
+  <p class="intro-copy">A living index of the brilliant people in your orbit. Search the directory, save your standouts, and stay curious.</p>
+</section>
 
-<p>Current students: {{ students.length }}</p>
+<section class="toolbar" aria-label="Directory controls">
+  <div class="search-wrap">
+    <label for="student-search">Search the directory</label>
+    <div class="search-field">
+      <span aria-hidden="true">/</span>
+      <input id="student-search" type="text" [(ngModel)]="searchTerm" placeholder="Search by name...">
+      <kbd>⌘ K</kbd>
+    </div>
+  </div>
+  <button
+    class="favourites-toggle"
+    type="button"
+    [class.is-active]="showFavouritesOnly"
+    (click)="showFavouritesOnly = !showFavouritesOnly"
+  >
+    <span>★</span> {{ showFavouritesOnly ? 'Show all students' : 'Show only favourites' }}
+  </button>
+</section>
 
-<label for="student-search">Search students</label>
-
-<input
-  id="student-search"
-  type="text"
-  [(ngModel)]="searchTerm"
-  placeholder="Search by name"
->
-
-<button type="button" (click)="toggleDetails()">
-  Toggle details
-</button>
-
-<app-add-student></app-add-student>
-
-<label>
-  <input
-    type="checkbox"
-    [checked]="showFavouritesOnly"
-    (change)="showFavouritesOnly = !showFavouritesOnly"
-  />
-
-  Show favourites only
-</label>
+<section class="directory-heading">
+  <div>
+    <p class="section-kicker">Directory index</p>
+    <p class="student-count"><strong>{{ students.length | number:'2.0-0' }}</strong> students on file</p>
+  </div>
+  <app-add-student></app-add-student>
+</section>
 
 @if (displayedStudents.length === 0) {
-  <p>No favourite students found.</p>
+  <p class="empty-state">No students found.</p>
 }
 
 @for (student of displayedStudents; track student.id) {
 <app-student-card
   [id]="student.id"
   [name]="student.name"
-  [email]="student.email"
-  [username]="student.username"
-  [showDetails]="showDetails"
-  [favourite]="student.favourite"
+  [score]="student.score"
+  [favourite]="student.favourite ?? false"
   (favouriteToggled)="toggleFavourite($event)"
+  (studentDeleted)="deleteStudent($event)"
 >
 </app-student-card>
 } @empty {
-  <p>No matching students found.</p>
+  <p class="empty-state">No matching students found.</p>
 }

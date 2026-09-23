@@ -1,5 +1,20 @@
 <main class="main">
+  <div class="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" routerLink="/" aria-label="Student directory home">
+      <span class="brand-mark">SD</span>
+      <span>Student<br><strong>Directory</strong></span>
+    </a>
+    <span class="edition">Edition 03 <i></i> 2026</span>
+  </header>
+
   <div class="content">
     <router-outlet></router-outlet>
   </div>
+
+  <footer class="footer">
+    <span>Built for curious minds.</span>
+    <span class="footer-rule"></span>
+    <span>Campus records / live</span>
+  </footer>
 </main>

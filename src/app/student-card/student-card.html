@@ -1,16 +1,26 @@
-<article>
-  <h2>{{ name }}</h2>
+<article class="student-card">
+  <div class="card-main">
+    <div class="card-heading">
+      <p class="card-label">Student record</p>
+      <span class="score-label">Score</span>
+    </div>
+    <h2>{{ name }}</h2>
+    <p class="student-score">{{ score }}<span> / 100</span></p>
 
-  @if (showDetails) {
-    <p>This is NOT the Username HAHA: {{ username }}</p>
-    <p>This is NOT the Email LOL: {{ email }}</p>
-  }
+    <div class="card-actions">
+      <a class="view-link" [routerLink]="['/student', id]">View score <span>↗</span></a>
 
-  <a [routerLink]="['/student', id]">
-    View student
-  </a>
+      <div class="secondary-actions">
+        <button
+          class="favourite-button"
+          type="button"
+          (click)="toggleFavourite()"
+          [class.is-favourite]="favourite"
+          [attr.aria-label]="favourite ? 'Remove from favourites' : 'Add to favourites'"
+        >{{ favourite ? '★' : '☆' }}</button>
+        <button class="delete-button" type="button" (click)="deleteStudent()" aria-label="Delete student">×</button>
+      </div>
+    </div>
+  </div>
 
-  <button type="button" (click)="toggleFavourite()">
-    {{ favourite ? 'Remove NO favourites' : 'Add to favourites' }}
-  </button>
 </article>

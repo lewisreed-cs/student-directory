@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StudentCard } from '../student-card/student-card';
 import { StudentRecord, StudentService } from '../student';
@@ -6,7 +7,7 @@ import { AddStudent } from '../add-student/add-student';
 
 @Component({
   selector: 'app-student-list',
-  imports: [FormsModule, StudentCard, AddStudent],
+  imports: [DecimalPipe, FormsModule, StudentCard, AddStudent],
   templateUrl: './student-list.html',
   styleUrl: './student-list.css'
 })
@@ -15,7 +16,6 @@ export class StudentList {
   isLoading = true;
   errorMessage = '';
   searchTerm = '';
-  showDetails = false;
   showFavouritesOnly = false;
 
   constructor(
@@ -48,20 +48,28 @@ export class StudentList {
     );
   }
 
-  toggleDetails(): void {
-    this.showDetails = !this.showDetails;
+  get displayedStudents(): StudentRecord[] {
+    const normalizedSearch = this.searchTerm.trim().toLowerCase();
+
+    return this.students.filter(student =>
+      student.name.toLowerCase().includes(normalizedSearch) &&
+      (!this.showFavouritesOnly || student.favourite)
+    );
   }
 
   toggleFavourite(id: number): void {
     this.studentService.toggleFavourite(id);
   }
 
-  get displayedStudents(): StudentRecord[] {
-    if (this.showFavouritesOnly) {
-      return this.students.filter(student => student.favourite);
-    }
-
-    return this.students;
+  deleteStudent(id: number): void {
+    this.studentService.deleteStudent(id).subscribe({
+      next: () => {
+        this.changeDetector.markForCheck();
+      },
+      error: err => {
+        console.error(err);
+      }
+    });
   }
 
 }

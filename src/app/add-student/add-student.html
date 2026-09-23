@@ -1,11 +1,19 @@
-<form [formGroup]="addStudentForm" (ngSubmit)="onSubmit()">
+<form class="add-form" [formGroup]="addStudentForm" (ngSubmit)="onSubmit()">
+  <div class="form-heading">
+    <span class="plus">+</span>
+    <span>Add profile</span>
+  </div>
 
-  <label for="name">Name</label>
-  <input
-    id="name"
-    type="text"
-    formControlName="name"
-  />
+  <div class="field-row">
+    <div class="field">
+      <label for="name">Name</label>
+      <input id="name" type="text" formControlName="name" placeholder="Ada Lovelace" />
+    </div>
+    <div class="field score-field">
+      <label for="score">Score</label>
+      <input id="score" type="number" formControlName="score" placeholder="98" />
+    </div>
+  </div>
 
   @if (
     addStudentForm.controls.name.invalid &&
@@ -20,15 +28,6 @@
     }
   }
 
-  <br />
-
-  <label for="score">Score</label>
-  <input
-    id="score"
-    type="number"
-    formControlName="score"
-  />
-
   @if (
     addStudentForm.controls.score.invalid &&
     addStudentForm.controls.score.touched
@@ -36,10 +35,5 @@
     <p>Score is required.</p>
   }
 
-  <br />
-
-  <button type="submit" [disabled]="addStudentForm.invalid">
-    Add student
-  </button>
-
+  <button class="submit-button" type="submit" [disabled]="isSubmitting">{{ isSubmitting ? 'Creating...' : 'Create profile' }} <span>↗</span></button>
 </form>

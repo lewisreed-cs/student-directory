@@ -6,7 +6,7 @@ import {
   Validators
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { StudentRecord, StudentService } from '../student';
+import { NewStudent, StudentService } from '../student';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -15,6 +15,8 @@ import { StudentRecord, StudentService } from '../student';
   templateUrl: './add-student.html',
 })
 export class AddStudent {
+  isSubmitting = false;
+
   addStudentForm = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,
@@ -40,33 +42,23 @@ export class AddStudent {
       return;
     }
 
-    const newStudent: StudentRecord = {
-      id: Date.now(),
+    this.isSubmitting = true;
+
+    const newStudent: NewStudent = {
       name: this.addStudentForm.controls.name.value,
-      score: this.addStudentForm.controls.score.value!,
-      favourite: false,
-      username: '',
-      email: '',
-      phone: '',
-      website: '',
-      address: {
-        street: '',
-        suite: '',
-        city: '',
-        zipcode: '',
-        geo: {
-          lat: '',
-          lng: ''
-        }
-      },
-      company: {
-        name: '',
-        catchPhrase: '',
-        bs: ''
-      }
+      score: this.addStudentForm.controls.score.value!
     };
 
-    this.studentService.addStudent(newStudent);
-    this.router.navigate(['/']);
+    this.studentService.addStudent(newStudent).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+        this.addStudentForm.reset();
+        this.router.navigate(['/']);
+      },
+      error: err => {
+        this.isSubmitting = false;
+        console.error(err);
+      }
+    });
   }
 }

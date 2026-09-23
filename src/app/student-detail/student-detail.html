@@ -1,30 +1,32 @@
+<a class="back-link" routerLink="/">← Back to directory</a>
+
 @if (isLoading) {
-  <p>Loading student...</p>
+  <p class="status-message">Loading student...</p>
 }
 
 @if (errorMessage) {
-  <p class="error-message">{{ errorMessage }}</p>
+  <p class="status-message error-message">{{ errorMessage }}</p>
 }
 
 @if (student) {
-  <h1>{{ student.name }}</h1>
+  <section class="profile-hero">
+    <p class="eyebrow">Student record</p>
+    <h1>{{ student.name }}</h1>
+    <p class="handle">Current student record</p>
+  </section>
 
-  <p>Student ID: {{ student.id }}</p>
-  <p>Username: {{ student.username }}</p>
-  <p>Email: {{ student.email }}</p>
-  <p>Phone: {{ student.phone }}</p>
-  <p>Website: {{ student.website }}</p>
-
-  <h2>Address</h2>
-  <p>
-    {{ student.address.street }},
-    {{ student.address.suite }},
-    {{ student.address.city }},
-    {{ student.address.zipcode }}
-  </p>
-
-  <h2>Company</h2>
-  <p>{{ student.company.name }}</p>
+  <section class="profile-grid">
+    <div class="profile-column">
+      <p class="detail-label">Student name</p>
+      <p class="large-value">{{ student.name }}</p>
+    </div>
+    <div class="profile-column">
+      <p class="detail-label">Score</p>
+      <p class="score-value">{{ student.score }}<span> / 100</span></p>
+    </div>
+    <div class="profile-column">
+      <p class="detail-label">Status</p>
+      <p class="large-value">Active</p>
+    </div>
+  </section>
 }
-
-<a routerLink="/">Back to student list</a>

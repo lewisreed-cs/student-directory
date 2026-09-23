@@ -1,17 +1,31 @@
-:host {
-  display: block;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
+:host { display: block; min-height: 100vh; background: #172321; }
 
 .main {
-  display: flex;
-  justify-content: center;
-  padding: 3rem 1rem;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 0 clamp(1.25rem, 5vw, 5.5rem);
+  background: #f3efe6;
+  box-sizing: border-box;
 }
 
-.content {
-  width: 100%;
-  max-width: 900px;
+.grain { position: absolute; inset: 0; pointer-events: none; opacity: .13; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.23'/%3E%3C/svg%3E"); mix-blend-mode: multiply; }
+
+.topbar, .content, .footer { position: relative; z-index: 1; max-width: 1220px; margin-inline: auto; }
+
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 2rem 0 1.5rem; border-bottom: 1px solid rgba(23, 35, 33, .16); }
+.brand { display: inline-flex; align-items: center; gap: .7rem; color: #172321; font-size: .8rem; font-weight: 500; line-height: .95; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+.brand strong { font-weight: 700; }
+.brand-mark { display: grid; width: 2.35rem; height: 2.35rem; place-items: center; border-radius: 50%; background: #d4f34a; color: #172321; font-size: .67rem; font-weight: 700; letter-spacing: 0; }
+.edition, .footer { color: #61706b; font-family: 'DM Mono', monospace; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; }
+.edition { display: flex; align-items: center; gap: .65rem; }
+.edition i { width: .35rem; height: .35rem; border-radius: 50%; background: #f36b4f; }
+.content { width: 100%; padding: clamp(3rem, 7vw, 6.5rem) 0 5rem; }
+.footer { display: flex; align-items: center; gap: .8rem; padding: 1.25rem 0 1.75rem; border-top: 1px solid rgba(23, 35, 33, .16); }
+.footer-rule { width: 2.5rem; height: 1px; background: #f36b4f; }
+
+@media (max-width: 560px) {
+  .edition { display: none; }
+  .content { padding-top: 3.25rem; }
+  .footer { flex-wrap: wrap; }
 }
